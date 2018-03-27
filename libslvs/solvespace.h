@@ -35,8 +35,11 @@
 // (defined as typedef FT_LibraryRec_* FT_Library) because including
 // freetype.h invokes indescribable horrors and we would like to avoid
 // doing that every time we include solvespace.h.
+
+#if FULL_LIB_JJS
 struct FT_LibraryRec_;
 struct FT_FaceRec_;
+#endif
 
 typedef struct _cairo cairo_t;
 
@@ -92,6 +95,7 @@ __attribute__((__format__ (__printf__, 1, 2)))
 #endif
 std::string ssprintf(const char *fmt, ...);
 
+#if FULL_LIB_JJS
 inline int WRAP(int v, int n) {
     // Clamp it to the range [0, n)
     while(v >= n) v -= n;
@@ -111,32 +115,41 @@ inline double WRAP_SYMMETRIC(double v, double n) {
     return v;
 }
 
+#endif
 // Why is this faster than the library function?
 inline double ffabs(double v) { return (v > 0) ? v : (-v); }
 
+#if FULL_LIB_JJS
 #define CO(v) (v).x, (v).y, (v).z
+#endif
 
 #define ANGLE_COS_EPS   (1e-6)
 #define LENGTH_EPS      (1e-6)
 #define VERY_POSITIVE   (1e10)
 #define VERY_NEGATIVE   (-1e10)
 
+#if FULL_LIB_JJS
 inline double Random(double vmax) {
     return (vmax*rand()) / RAND_MAX;
 }
+#endif
 
 class Expr;
 class ExprVector;
 class ExprQuaternion;
 class RgbaColor;
+
+#if FULL_LIB_JJS
 enum class Command : uint32_t;
 enum class ContextCommand : uint32_t;
+#endif
 
 //================
 // From the platform-specific code.
 
 #include "platform/platform.h"
 
+#if FULL_LIB_JJS
 const size_t MAX_RECENT = 8;
 extern Platform::Path RecentFile[MAX_RECENT];
 void RefreshRecentMenus();
@@ -154,6 +167,9 @@ enum class Unit : uint32_t {
     INCHES
 };
 
+#endif
+
+#if FULL_LIB_JJS
 struct FileFilter;
 
 bool GetSaveFile(Platform::Path *filename, const std::string &defExtension,
@@ -194,25 +210,38 @@ void GetTextWindowSize(int *w, int *h);
 double GetScreenDpi();
 int64_t GetMilliseconds();
 
+#endif
+
 void dbp(const char *str, ...);
+#if FULL_LIB_JJS
 #define DBPTRI(tri) \
     dbp("tri: (%.3f %.3f %.3f) (%.3f %.3f %.3f) (%.3f %.3f %.3f)", \
         CO((tri).a), CO((tri).b), CO((tri).c))
 
 void SetCurrentFilename(const Platform::Path &filename);
 void SetMousePointerToHand(bool yes);
+
+#endif
 void DoMessageBox(const char *str, int rows, int cols, bool error);
+#if FULL_LIB_JJS
 void SetTimerFor(int milliseconds);
 void SetAutosaveTimerFor(int minutes);
 void ScheduleLater();
 void ExitNow();
 
+#endif
+
 void CnfFreezeInt(uint32_t val, const std::string &name);
+#if FULL_LIB_JJS
 void CnfFreezeFloat(float val, const std::string &name);
 void CnfFreezeString(const std::string &val, const std::string &name);
 std::string CnfThawString(const std::string &val, const std::string &name);
+
+#endif
 uint32_t CnfThawInt(uint32_t val, const std::string &name);
+#if FULL_LIB_JJS
 float CnfThawFloat(float val, const std::string &name);
+#endif
 
 std::vector<std::string> InitPlatform(int argc, char **argv);
 
@@ -221,7 +250,10 @@ void FreeTemporary(void *p);
 void FreeAllTemporary();
 void *MemAlloc(size_t n);
 void MemFree(void *p);
+
+#if FULL_LIB_JJS
 void vl(); // debug function to validate heaps
+#endif
 
 #include "resource.h"
 
@@ -235,6 +267,7 @@ struct CompareHandle {
 
 template<class Key, class T>
 using handle_map = std::map<Key, T, CompareHandle<Key>>;
+
 
 class Group;
 class SSurface;
@@ -260,9 +293,12 @@ enum class SolveResult : uint32_t {
 
 
 #include "sketch.h"
+#if FULL_LIB_JJS
 #include "ui.h"
+#endif
 #include "expr.h"
 
+#if FULL_LIB_JJS
 
 // Utility functions that are provided in the platform-independent code.
 class utf8_iterator : std::iterator<std::forward_iterator_tag, char32_t> {
@@ -276,6 +312,8 @@ public:
     utf8_iterator  operator++(int) { utf8_iterator t(*this); operator++(); return t; }
     char32_t       operator*();
 };
+
+
 class ReadUTF8 {
     const std::string &str;
 public:
@@ -283,7 +321,7 @@ public:
     utf8_iterator begin() const { return utf8_iterator(&str[0]); }
     utf8_iterator end()   const { return utf8_iterator(&str[str.length()]); }
 };
-
+#endif
 
 #define arraylen(x) (sizeof((x))/sizeof((x)[0]))
 #define PI (3.1415926535897931)
@@ -381,6 +419,7 @@ public:
     void Clear();
 };
 
+#if FULL_LIB_JJS
 #include "ttf.h"
 
 class StepFileWriter {
@@ -551,6 +590,7 @@ public:
     bool HasCanvasSize() const override { return false; }
     bool CanOutputMesh() const override { return false; }
 };
+#endif
 
 #ifdef LIBRARY
 #   define ENTITY EntityBase
@@ -587,6 +627,8 @@ public:
 };
 #undef ENTITY
 #undef CONSTRAINT
+
+#if FULL_LIB_JJS
 
 class SolveSpaceUI {
 public:
@@ -877,11 +919,11 @@ public:
         delete pSys;
     }
 };
-
 void ImportDxf(const Platform::Path &file);
 void ImportDwg(const Platform::Path &file);
 
 extern SolveSpaceUI SS;
+#endif
 extern Sketch SK;
 
 }

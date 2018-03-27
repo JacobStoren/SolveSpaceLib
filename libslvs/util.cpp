@@ -28,6 +28,7 @@ std::string SolveSpace::ssprintf(const char *fmt, ...)
     result.resize(size);
     return result;
 }
+#if FULL_LIB_JJS
 
 char32_t utf8_iterator::operator*()
 {
@@ -50,12 +51,12 @@ char32_t utf8_iterator::operator*()
     this->n = (const char*) (it + 1);
     return result;
 }
-
 int64_t SolveSpace::GetMilliseconds()
 {
     auto timestamp = std::chrono::steady_clock::now().time_since_epoch();
     return std::chrono::duration_cast<std::chrono::milliseconds>(timestamp).count();
 }
+#endif
 
 void SolveSpace::MakeMatrix(double *mat,
                             double a11, double a12, double a13, double a14,
@@ -760,6 +761,7 @@ bool Vector::BoundingBoxesDisjoint(Vector amax, Vector amin,
     return false;
 }
 
+#if FULL_LIB_JJS
 bool Vector::BoundingBoxIntersectsLine(Vector amax, Vector amin,
                                        Vector p0, Vector p1, bool asSegment)
 {
@@ -793,6 +795,7 @@ bool Vector::BoundingBoxIntersectsLine(Vector amax, Vector amin,
 
     return false;
 }
+#endif
 
 Vector Vector::AtIntersectionOfPlanes(Vector n1, double d1,
                                       Vector n2, double d2)

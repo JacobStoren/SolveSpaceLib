@@ -1,22 +1,13 @@
 cmake_minimum_required(VERSION 3.2.0 FATAL_ERROR)
 
-# platform utilities
+# Platform utilities
 
 if(WIN32)
-    set(util_SOURCES
-        #platform/w32util.cpp
-		platform/unixutil.cpp
-)
 	add_definitions(-D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_WARNINGS)
-else()
-    set(util_SOURCES
-        platform/unixutil.cpp)
 endif()
 
-if(APPLE)
-    set(util_LIBRARIES
-        ${APPKIT_LIBRARY})
-endif()
+set(util_SOURCES
+    platform/unixutil.cpp)
 
 # libslvs
 
@@ -24,17 +15,20 @@ set(libslvs_SOURCES
     util.cpp
     entity.cpp
     expr.cpp
-    #constraint.cpp
     constrainteq.cpp
     system.cpp
-   # platform/platform.cpp
 )
 
 set(libslvs_HEADERS
+	dsc.h
+	expr.h
+	polygon.h
+	resource.h
+	sketch.h
     solvespace.h
     platform/platform.h
-	expr.h
 	include/slvs.h
+	srf/surface.h
 )
 
 add_library(slvs SHARED

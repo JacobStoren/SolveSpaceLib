@@ -7,7 +7,10 @@
 // Copyright 2008-2013 Jonathan Westhues.
 // Copyright 2013 Daniel Richard G. <skunk@iSKUNK.ORG>
 //-----------------------------------------------------------------------------
+#ifndef LIBRARY
 #include <execinfo.h>
+#endif
+
 #include "solvespace.h"
 
 namespace SolveSpace {

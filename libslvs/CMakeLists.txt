@@ -4,7 +4,8 @@ cmake_minimum_required(VERSION 3.2.0 FATAL_ERROR)
 
 if(WIN32)
     set(util_SOURCES
-        platform/w32util.cpp
+        #platform/w32util.cpp
+		platform/unixutil.cpp
 )
 	add_definitions(-D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_WARNINGS)
 else()
@@ -23,15 +24,18 @@ set(libslvs_SOURCES
     util.cpp
     entity.cpp
     expr.cpp
-    constraint.cpp
+    #constraint.cpp
     constrainteq.cpp
     system.cpp
-    platform/platform.cpp
+   # platform/platform.cpp
 )
 
 set(libslvs_HEADERS
     solvespace.h
-    platform/platform.h)
+    platform/platform.h
+	expr.h
+	include/slvs.h
+)
 
 add_library(slvs SHARED
     ${libslvs_SOURCES}

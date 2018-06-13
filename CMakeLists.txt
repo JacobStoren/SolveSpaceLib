@@ -6,7 +6,9 @@ ADD_SUBDIRECTORY(libslvs)
 
 add_executable(CDemo
     CDemo.c
-    WellPathSCreator.cpp)
+    WellPathSCreator.cpp
+	SolveSpaceSystem.h
+	SolveSpaceSystem.cpp)
 
 target_link_libraries(CDemo
     libslvs)

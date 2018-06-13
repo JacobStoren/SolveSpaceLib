@@ -6,10 +6,10 @@
 #include <tuple>
 #include <iostream>
 
-class RiaSolveSpaceSystem
+class SolveSpaceSystem
 {
 public:
-    RiaSolveSpaceSystem() 
+    SolveSpaceSystem() 
     {
         m_paramsMemory.reserve(100);
         m_entityMemory.reserve(100);
@@ -256,7 +256,7 @@ extern "C" void wellPathTest(double p1x,
 
     */
 
-    RiaSolveSpaceSystem sys;
+    SolveSpaceSystem sys;
 
     Slvs_hGroup group1 = 1;
     Slvs_hGroup group2 = 2;
@@ -348,7 +348,7 @@ extern "C" void wellPathTest(double p1x,
                                                                       e_Plane2Norm, 
                                                                       e_xAxisNorm ));
     auto solveResult = sys.solve(group2, true);
-    assert(solveResult == RiaSolveSpaceSystem::RESULT_OKAY);
+    assert(solveResult == SolveSpaceSystem::RESULT_OKAY);
 
 
     Slvs_hParam p_L2P2x  = sys.addParam( Slvs_MakeParam(-1, group2, 10) );  
@@ -393,7 +393,7 @@ extern "C" void wellPathTest2(double p1x,
                              double inc2, 
                              double rad2)
 {
-    RiaSolveSpaceSystem sys;
+    SolveSpaceSystem sys;
 
     Slvs_hGroup group1 = 1;
     Slvs_hGroup group2 = 2;
@@ -600,7 +600,7 @@ extern "C" void wellPathTest2(double p1x,
 
 
     auto solveResult = sys.solve(group2, true);
-    assert(solveResult == RiaSolveSpaceSystem::RESULT_OKAY);
+    assert(solveResult == SolveSpaceSystem::RESULT_OKAY);
 
     // Connecting the two planes
 
@@ -620,7 +620,7 @@ extern "C" void wellPathTest2(double p1x,
                                                                              e_LP11P22));
 
     solveResult = sys.solve(group2, true);
-    assert(solveResult == RiaSolveSpaceSystem::RESULT_OKAY);
+    assert(solveResult == SolveSpaceSystem::RESULT_OKAY);
 
 
     Slvs_hConstraint c_perpC2P22_LP11P22 = sys.addConstr(Slvs_MakeConstraint(-1,
@@ -634,7 +634,7 @@ extern "C" void wellPathTest2(double p1x,
                                                                              e_LP11P22));
 
     solveResult = sys.solve(group2, true);
-    assert(solveResult == RiaSolveSpaceSystem::RESULT_OKAY);
+    assert(solveResult == SolveSpaceSystem::RESULT_OKAY);
 
     // P11, P22 in plane constraints
 
@@ -649,7 +649,7 @@ extern "C" void wellPathTest2(double p1x,
                                                                      -1));
 
     solveResult = sys.solve(group2, true);
-    assert(solveResult == RiaSolveSpaceSystem::RESULT_OKAY);
+    assert(solveResult == SolveSpaceSystem::RESULT_OKAY);
 
     Slvs_hConstraint c_P22InPlane1 = sys.addConstr(Slvs_MakeConstraint(-1,
                                                                        group2,
@@ -663,7 +663,7 @@ extern "C" void wellPathTest2(double p1x,
 
 
     solveResult = sys.solve(group2, true);
-    assert(solveResult == RiaSolveSpaceSystem::RESULT_OKAY);
+    assert(solveResult == SolveSpaceSystem::RESULT_OKAY);
 
 
     // Circle Center, Plane normals, P11, P22

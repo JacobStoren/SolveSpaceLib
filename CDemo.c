@@ -249,7 +249,7 @@ void Example2d()
     }
 }
 
-extern  void wellPathTest2(double p1x, 
+extern  void example_S_Curve(double p1x, 
                               double p1y,
                               double p1z, 
                               double azi1, 
@@ -282,8 +282,8 @@ int main()
         break;
     }
 
-    wellPathTest2(100, 100, 0, 0, M_PI_4, 12, 
-                  100, 150, -1000, M_PI, M_PI_4, 12 );
+    example_S_Curve(100, 100,     0,    0, M_PI_4, 12,
+                    100, 150, -1000, M_PI, M_PI_4, 12);
 
     return 0;
 }

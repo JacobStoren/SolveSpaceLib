@@ -249,6 +249,23 @@ void Example2d()
     }
 }
 
+extern  void wellPathTest2(double p1x, 
+                              double p1y,
+                              double p1z, 
+                              double azi1, 
+                              double inc1,
+                              double radi1, 
+                              double p2x, 
+                              double p2y,
+                              double p2z, 
+                              double azi2, 
+                              double inc2, 
+                              double radi2);
+
+#define M_PI       3.14159265358979323846   // pi
+#define M_PI_2     1.57079632679489661923   // pi/2
+#define M_PI_4     0.785398163397448309616  // pi/4
+
 int main()
 {
     sys.param      = CheckMalloc(50*sizeof(sys.param[0]));
@@ -264,6 +281,10 @@ int main()
         sys.params = sys.constraints = sys.entities = 0;
         break;
     }
+
+    wellPathTest2(100, 100, 0, 0, M_PI_4, 12, 
+                  100, 150, -1000, M_PI, M_PI_4, 12 );
+
     return 0;
 }
 

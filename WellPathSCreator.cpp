@@ -149,7 +149,9 @@ private:
 };
  
 /*-----------------------------------------------------------------------------
-*
+ Unfinished. Only reference comments and code.
+ Some problem with constraining the normal of a plane. Seems like we constrain 
+ the complete orientation, and not only the normal vector.
 *---------------------------------------------------------------------------*/
 extern "C" void wellPathTest(double p1x, 
                   double p1y,

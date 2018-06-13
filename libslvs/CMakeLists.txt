@@ -6,7 +6,7 @@ if(WIN32)
 	add_definitions(-D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_WARNINGS)
 endif()
 
-add_library(slvs SHARED
+add_library(libslvs SHARED
     constrainteq.cpp
 	dsc.h
     entity.cpp
@@ -24,14 +24,14 @@ add_library(slvs SHARED
 	srf/surface.h
     lib.cpp)
 
-target_compile_definitions(slvs
+target_compile_definitions(libslvs
     PRIVATE -DLIBRARY)
 
-target_include_directories(slvs
+target_include_directories(libslvs
     PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include 
     PRIVATE ${CMAKE_CURRENT_LIST_DIR} )
 
-set_target_properties(slvs PROPERTIES
+set_target_properties(libslvs PROPERTIES
     PUBLIC_HEADER ${CMAKE_SOURCE_DIR}/include/slvs.h
     VERSION ${solvespace_VERSION_MAJOR}.${solvespace_VERSION_MINOR}
     SOVERSION 1)

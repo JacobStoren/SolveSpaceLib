@@ -10,12 +10,16 @@
 #ifndef __SLVS_H
 #define __SLVS_H
 
+#ifdef SLVS_LIB_SHARED
 #ifdef WIN32
 #   ifdef EXPORT_DLL
 #       define DLL __declspec( dllexport )
 #   else
 #       define DLL __declspec( dllimport )
 #   endif
+#else
+#   define DLL
+#endif
 #else
 #   define DLL
 #endif

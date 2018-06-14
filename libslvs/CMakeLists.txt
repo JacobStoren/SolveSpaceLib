@@ -6,7 +6,16 @@ if(WIN32)
 	add_definitions(-D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_WARNINGS)
 endif()
 
-add_library(libslvs SHARED
+option(SLVS_BUILD_SHARED "Build SolveSpaceLib as a .dll or .so" ON)
+
+if (${SLVS_BUILD_SHARED})
+	set(SLVS_LIB_TYPE "SHARED")
+	set(SLVS_SHARED_LIB_DEFINE "-DSLVS_LIB_SHARED")
+else()
+	set(SLVS_LIB_TYPE "STATIC")
+endif()
+
+add_library(libslvs ${SLVS_LIB_TYPE}
     constrainteq.cpp
 	dsc.h
     entity.cpp
@@ -26,8 +35,10 @@ add_library(libslvs SHARED
 	include/SolveSpaceSystem.h
 	SolveSpaceSystem.cpp)
 
+
 target_compile_definitions(libslvs
-    PRIVATE -DLIBRARY)
+	PUBLIC ${SLVS_SHARED_LIB_DEFINE}
+	PRIVATE -DLIBRARY)
 
 target_include_directories(libslvs
     PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include 

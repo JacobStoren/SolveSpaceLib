@@ -6,7 +6,7 @@
 #include <vector>
 #include <tuple>
 
-class SolveSpaceSystem
+class DLL SolveSpaceSystem
 {
 public:
     SolveSpaceSystem();
@@ -36,16 +36,16 @@ public:
     // Returns point as x, y, z values
     std::valarray<double> global3DPos (Slvs_hEntity pointEntityId);
 
-    Slvs_Constraint constraint(Slvs_hConstraint constraintId) { return m_constraintMemory[constraintId-1]; }
-    const std::vector<Slvs_hConstraint>& failedConstraints() { return m_failedConstrMemory;}
+    Slvs_Constraint constraint(Slvs_hConstraint constraintId);
+    std::vector<Slvs_hConstraint> failedConstraints() const;
 
 private:
     Slvs_System m_slvsSystem;
 
-    std::vector<Slvs_Param> m_paramsMemory;
-    std::vector<Slvs_Entity> m_entityMemory;
-    std::vector<Slvs_Constraint> m_constraintMemory;
-    std::vector<Slvs_hConstraint> m_failedConstrMemory;
+    std::vector<Slvs_Param>      * m_paramsMemory;
+    std::vector<Slvs_Entity>     * m_entityMemory;
+    std::vector<Slvs_Constraint> * m_constraintMemory;
+    std::vector<Slvs_hConstraint>* m_failedConstrMemory;
 };
  
 

@@ -22,7 +22,9 @@ add_library(libslvs SHARED
     platform/unixutil.cpp
 	include/slvs.h
 	srf/surface.h
-    lib.cpp)
+    lib.cpp
+	include/SolveSpaceSystem.h
+	SolveSpaceSystem.cpp)
 
 target_compile_definitions(libslvs
     PRIVATE -DLIBRARY)

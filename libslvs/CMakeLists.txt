@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.2.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.8.12)
 
 # Platform utilities
 
-if(WIN32)
+if(MSVC)
 	add_definitions(-D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_WARNINGS)
 endif()
 
@@ -35,6 +35,11 @@ add_library(libslvs ${SLVS_LIB_TYPE}
 	include/SolveSpaceSystem.h
 	SolveSpaceSystem.cpp)
 
+if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+    target_compile_options(libslvs
+        PRIVATE -Wno-missing-field-initializers
+		PUBLIC -std=c++11)
+endif()
 
 target_compile_definitions(libslvs
 	PUBLIC ${SLVS_SHARED_LIB_DEFINE}

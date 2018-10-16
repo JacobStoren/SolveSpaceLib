@@ -93,6 +93,14 @@ double SolveSpaceSystem::parameterValue(Slvs_hParam paramId)
 //--------------------------------------------------------------------------------------------------
 /// 
 //--------------------------------------------------------------------------------------------------
+void SolveSpaceSystem::setParameterValue(Slvs_hParam paramId, double value)
+{
+    (*m_paramsMemory)[paramId-1].val = value;
+}
+
+//--------------------------------------------------------------------------------------------------
+/// 
+//--------------------------------------------------------------------------------------------------
 std::tuple< std::valarray<double>,
     std::valarray<double>,
     std::valarray<double> > SolveSpaceSystem::orientationMx(Slvs_hEntity normalIn3dEntityId)
@@ -155,7 +163,7 @@ std::valarray<double> SolveSpaceSystem::global3DPos(Slvs_hEntity pointEntityId)
 //--------------------------------------------------------------------------------------------------
 /// 
 //--------------------------------------------------------------------------------------------------
-Slvs_Constraint SolveSpaceSystem::constraint(Slvs_hConstraint constraintId)
+Slvs_Constraint& SolveSpaceSystem::constraint(Slvs_hConstraint constraintId)
 {
     return (*m_constraintMemory)[constraintId-1];
 }

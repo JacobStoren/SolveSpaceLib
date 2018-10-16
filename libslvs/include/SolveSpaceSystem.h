@@ -27,6 +27,7 @@ public:
     ResultStatus solve(Slvs_hGroup groupId, bool reportFailedConstraints = true);
 
     double parameterValue(Slvs_hParam paramId);
+    void   setParameterValue(Slvs_hParam paramId, double value);
 
     std::tuple< std::valarray<double>,
         std::valarray<double>,
@@ -36,7 +37,7 @@ public:
     // Returns point as x, y, z values
     std::valarray<double> global3DPos (Slvs_hEntity pointEntityId);
 
-    Slvs_Constraint constraint(Slvs_hConstraint constraintId);
+    Slvs_Constraint & constraint(Slvs_hConstraint constraintId);
     std::vector<Slvs_hConstraint> failedConstraints() const;
 
 private:
